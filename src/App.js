@@ -7,7 +7,7 @@ class App extends React.Component {
     people: [],
     types: {},
     type: "temp",
-    range: [] // time range for brush
+    range: [] // sol range for brush
   };
 
   componentDidMount() {
@@ -17,22 +17,14 @@ class App extends React.Component {
     ])
       .then(responses => Promise.all(responses.map(resp => resp.json())))
       .then(([temp, pressure]) => {
-        console.log("temp: " + JSON.stringify(temp));
-        const newTemp = Object.values(temp);
-        const newPressure = Object.values(pressure);
-        console.log("newTemp: " + JSON.stringify(newTemp));
-        this.setState({ types: { temp, pressure } });
-        //this.setState({ types: { temp, pressure } });
+        this.setState({
+          types: {
+            temp: Object.values(temp),
+            pressure: Object.values(pressure)
+          }
+        });
       });
   }
-
-  loadData = async () => {
-    const response = await fetch("https://randomuser.me/api/?results=5");
-    const data = await response.json();
-    this.setState({
-      people: data.results
-    });
-  };
 
   updateType = e => {
     this.setState({ type: e.target.value });
@@ -72,13 +64,6 @@ class App extends React.Component {
           </a>
           )
         </p>
-
-        <div>
-          <button onClick={this.loadData}>load data</button>
-          {people.map(x => (
-            <div key={x.name.first}>{x.name.first}</div>
-          ))}
-        </div>
       </div>
     );
   }
