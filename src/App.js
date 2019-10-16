@@ -36,7 +36,6 @@ class App extends React.Component {
 
   render() {
     const data = this.state.types[this.state.type];
-    const { people } = this.state;
 
     return (
       <div className="App">
