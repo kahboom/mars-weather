@@ -10,20 +10,45 @@ class App extends React.Component {
     range: [] // sol range for brush
   };
 
-  componentDidMount() {
+  loadData = async () => {
+    const response = await fetch("https://randomuser.me/api/?results=5");
+    const data = await response.json();
+    this.setState({
+      people: data.results
+    });
+  };
+
+  async componentDidMount() {
+    try {
+      const response = await fetch(`${process.env.PUBLIC_URL || ""}/temp.json`);
+      const data = await response.json();
+      const newTemp = Object.values(data.results);
+      console.log("newTemp: " + JSON.stringify(newTemp));
+      this.setState({
+        types: {
+          temp: newTemp
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    /**
     Promise.all([
       fetch(`${process.env.PUBLIC_URL || ""}/temp.json`),
       fetch(`${process.env.PUBLIC_URL || ""}/pressure.json`)
     ])
       .then(responses => Promise.all(responses.map(resp => resp.json())))
       .then(([temp, pressure]) => {
+        const newTemp = Object.values(temp);
+        const newPressure = Object.values(pressure);
         this.setState({
           types: {
-            temp: Object.values(temp),
-            pressure: Object.values(pressure)
+            temp: newTemp,
+            pressure: newPressure
           }
         });
       });
+      **/
   }
 
   updateType = e => {
