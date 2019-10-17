@@ -16,12 +16,12 @@ class AirTemperature extends Component {
 
     const radiusScale = d3
       .scaleLinear()
-      .domain([d3.min(data, d => d.min), d3.max(data, d => d.max)])
+      .domain([d3.min(data, d => d.AT.mn), d3.max(data, d => d.AT.mx)])
       .range([0, width / 2]);
 
     const colorScale = d3
       .scaleSequential()
-      .domain(d3.extent(data, d => d.avg))
+      .domain(d3.extent(data, d => d.AT.av))
       .interpolator(d3.interpolateRdYlBu);
 
     // get the angle for each slice
@@ -33,20 +33,20 @@ class AirTemperature extends Component {
       const path = arcGenerator({
         startAngle: i * perSliceAngle,
         endAngle: (i + 1) * perSliceAngle,
-        innerRadius: radiusScale(d.min),
-        outerRadius: radiusScale(d.max)
+        innerRadius: radiusScale(d.AT.mn),
+        outerRadius: radiusScale(d.AT.mx)
       });
       // slice should be colored if there's no sol range
       // or if the slice is within the sol range
       const isColored =
-        !range.length || (range[0] <= d.sol && d.sol <= range[1]);
+        !range.length || (range[0] <= d.AT.date && d.AT.date <= range[1]);
       return {
         path,
-        fill: isColored ? colorScale(d.avg) : "#ccc"
+        fill: isColored ? colorScale(d.AT.av) : "#ccc"
       };
     });
 
-    const typeAnnotations = [50, 100, 125, 150, 200].map(type => {
+    const typeAnnotations = [-200, -100, -75, -50, 100].map(type => {
       return {
         r: radiusScale(type),
         type
