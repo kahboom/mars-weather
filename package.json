@@ -24,5 +24,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "repository": "git@github.com:kahboom/mars-weather.git",
+  "author": "kahboom <rachelyordan@gmail.com>",
+  "license": "MIT"
 }
