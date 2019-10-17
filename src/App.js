@@ -11,7 +11,6 @@ class App extends React.Component {
 
   componentDidMount() {
     Promise.all([
-      //fetch('https://api.nasa.gov/insight_weather/?api_key=JZsVqaKDbQ0Z7YD9Qla4yKzWelaUjP2rbLAF4qTG&feedtype=json&ver=1.0')
       fetch(`${process.env.PUBLIC_URL || ""}/temp.json`)
     ])
       .then(responses => Promise.all(responses.map(resp => resp.json())))
