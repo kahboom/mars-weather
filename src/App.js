@@ -16,9 +16,6 @@ class App extends React.Component {
       .then(responses => Promise.all(responses.map(resp => resp.json())))
       .then(([temp, pressure]) => {
         const newTemp = Object.values(temp);
-        //const newPressure = Object.values(pressure);
-        //newTemp.forEach(sol => (sol.AT ? (sol.AT.date = sol.Last_UTC) : ''));
-        console.log("newTemp: " + JSON.stringify(newTemp))
         this.setState({
           types: {
             temp: newTemp,

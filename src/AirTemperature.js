@@ -36,9 +36,6 @@ class AirTemperature extends Component {
         innerRadius: radiusScale(d.AT.mn),
         outerRadius: radiusScale(d.AT.mx)
       });
-      console.log('d: ' + JSON.stringify(d.AT));
-      console.log('d.mn: ' + JSON.stringify((d.AT.mn)));
-      console.log('radiusScale(d.mn): ' + JSON.stringify(radiusScale(d.AT.mn)));
       // slice should be colored if there's no sol range
       // or if the slice is within the sol range
       const isColored =
@@ -50,8 +47,6 @@ class AirTemperature extends Component {
     });
 
     const typeAnnotations = [-200, -100, -75, -50, 100].map(type => {
-      console.log('type: ' + JSON.stringify(type));
-      console.log('radiusScale(type): ' + JSON.stringify(radiusScale(type)));
       return {
         r: radiusScale(type),
         type
